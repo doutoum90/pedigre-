@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col" *ngIf="families && families.length > 0; else pasDeFamille">
+    <h2>Liste des Familles</h2>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        style="cursor: pointer"
+        *ngFor="let family of families"
+        [routerLink]="['/arbres/', family.id, 'family']"
+      >
+        {{ family.name }}
+      </li>
+    </ul>
+  </div>
+  <ng-template #pasDeFamille>
+    <p>Pas de nouvelle Familles?</p>
+
+    <button class="btn btn-primary" (click)="showForm = true">
+      Ajouter Nouvelle Famille
+    </button>
+    <div *ngIf="showForm">
+      <div [formGroup]="familyForm">
+        <div class="form-group">
+          <label for="name"> Name: </label>
+          <input
+            id="name"
+            class="form-control"
+            placeholder="John Doe"
+            type="text"
+            formControlName="name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="histoire">Histoire: </label>
+
+          <textarea
+            class="form-control"
+            id="histoire"
+            formControlName="histoire"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="mt-3">
+          <button
+            class="btn btn-primary me-2"
+            type="submit"
+            (click)="validate()"
+          >
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

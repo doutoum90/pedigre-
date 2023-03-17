@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-parent',
@@ -160,7 +161,7 @@ export class ParentComponent implements OnInit {
     if (this.personne.parentId) {
       this.http
         .get<any>(
-          `http://localhost:3000/families/parents/${this.personne.parentId}`
+          `${environment.BASE_URL}/members/parents/${this.personne.parentId}`
         )
         .subscribe((parent) => (this.parent = parent));
     }
@@ -195,7 +196,7 @@ export class ParentComponent implements OnInit {
       profileUrl: value.profileUrl || 'https://fakeimg.pl/100/',
     };
     this.http
-      .post<any>('http://localhost:3000/families', vals)
+      .post<any>(`${environment.BASE_URL}/members`, vals)
       .subscribe((members: any) => {
         this.router.navigate(['arbres']);
       });
@@ -208,7 +209,7 @@ export class ParentComponent implements OnInit {
       profileUrl: value.profileUrl || 'https://fakeimg.pl/100/',
     };
     this.http
-      .post<any>('http://localhost:3000/families', vals)
+      .post<any>(`${environment.BASE_URL}/members`, vals)
       .subscribe((members: any) => {
         this.initForm();
       });

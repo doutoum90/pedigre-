@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-partner',
@@ -172,7 +173,7 @@ export class PartnerComponent implements OnInit {
       profileUrl: value.profileUrl || 'https://fakeimg.pl/100/',
     };
     this.http
-      .post<any>('http://localhost:3000/families', vals)
+      .post<any>(`${environment.BASE_URL}/members`, vals)
       .subscribe((members: any) => {
         this.router.navigate(['arbres']);
       });
@@ -185,7 +186,7 @@ export class PartnerComponent implements OnInit {
       profileUrl: value.profileUrl || 'https://fakeimg.pl/100/',
     };
     this.http
-      .post<any>('http://localhost:3000/families', vals)
+      .post<any>(`${environment.BASE_URL}/members`, vals)
       .subscribe((members: any) => {
         this.initForm();
       });

@@ -5,6 +5,8 @@ import {
   Input,
   ViewChild,
   ElementRef,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -18,6 +20,7 @@ import { OrgChart } from 'd3-org-chart';
 export class D3OrgChartComponent implements OnInit, OnChanges {
   @ViewChild('chartContainer') chartContainer!: ElementRef;
   @Input() data!: any[];
+  @Output() redirectEvent: EventEmitter<any> = new EventEmitter();
   chart!: OrgChart<unknown>;
 
   constructor(private readonly router: Router) {}
@@ -97,7 +100,8 @@ export class D3OrgChartComponent implements OnInit, OnChanges {
       })
       .data(this.data)
       .onNodeClick((evt) => {
-        this.router.navigate(['arbres', 'add', evt]);
+        this.redirectEvent.emit(evt);
+        //this.router.navigate(['arbres', 'this.famID', 'add', evt]);
       })
       .render();
   }

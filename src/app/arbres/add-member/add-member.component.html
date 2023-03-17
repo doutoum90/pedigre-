@@ -1,0 +1,159 @@
+<div [formGroup]="membreForm" class="mt-5">
+  <div class="row">
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="name"> Nom: </label>
+          <input
+            id="name"
+            class="form-control"
+            placeholder="John Doe"
+            type="text"
+            formControlName="name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="surNom">Surnom: </label>
+          <input
+            id="surNom"
+            type="text"
+            class="form-control"
+            placeholder="Le surnom ici"
+            formControlName="surNom"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="histoire">Histoire: </label>
+
+          <textarea
+            class="form-control"
+            id="histoire"
+            formControlName="histoire"
+            rows="3"
+          ></textarea>
+        </div>
+        <div class="mt-3">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="sex"
+              value="H"
+              name="sex"
+              id="sex1"
+            />
+            <label class="form-check-label" for="sex1"> Homme </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              formControlName="sex"
+              value="F"
+              name="sex"
+              id="sex2"
+            />
+            <label class="form-check-label" for="sex2"> Femme </label>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="mb-3 form-check">
+          <input
+            type="checkbox"
+            formControlName="dateNaissanceExacte"
+            class="form-check-input"
+            id="dateNaissanceExacte"
+          />
+          <label class="form-check-label" for="dateNaissanceExacte"
+            >Date Naissance exacte ?</label
+          >
+        </div>
+        <div
+          class="form-group"
+          *ngIf="
+            this.membreForm.get('dateNaissanceExacte')?.value;
+            else dateNaissanceNonExacte
+          "
+        >
+          <label for="dateNaissance">Date de naissance:</label>
+          <input
+            id="dateNaissance"
+            type="date"
+            class="form-control"
+            formControlName="dateNaissance"
+          />
+        </div>
+        <ng-template #dateNaissanceNonExacte>
+          <div class="form-group">
+            <label for="dateNaissance">Date de naissance (non exacte):</label>
+            <input
+              id="dateNaissance"
+              type="text"
+              class="form-control"
+              placeholder="vers 1900"
+              formControlName="dateNaissance"
+            />
+          </div>
+        </ng-template>
+
+        <div class="mb-3 mt-3 form-check">
+          <input
+            type="checkbox"
+            formControlName="mort"
+            class="form-check-input"
+            id="mort"
+          />
+          <label class="form-check-label" for="mort">Mort ?</label>
+        </div>
+        <div *ngIf="this.membreForm.get('mort')?.value">
+          <div class="mb-3 form-check">
+            <input
+              type="checkbox"
+              formControlName="dateDecesExacte"
+              class="form-check-input"
+              id="dateDecesExacte"
+            />
+            <label class="form-check-label" for="dateDecesExacte"
+              >Date de decés exacte ?</label
+            >
+          </div>
+          <div
+            class="form-group"
+            *ngIf="
+              this.membreForm.get('dateDecesExacte')?.value;
+              else dateDecesNonExacte
+            "
+          >
+            <label for="dateDeces">Date de décés: </label>
+            <input
+              id="dateDeces"
+              type="date"
+              class="form-control"
+              formControlName="dateDeces"
+            />
+          </div>
+          <ng-template #dateDecesNonExacte>
+            <label for="dateDeces">Date de décés: </label>
+            <input
+              id="dateDeces"
+              type="text"
+              class="form-control"
+              placeholder="vers 1900"
+              formControlName="dateDeces"
+            />
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="mt-3">
+      <button class="btn btn-primary me-2" type="submit" (click)="ajouter()">
+        Ajouter
+      </button>
+    </div>
+  </div>
+</div>

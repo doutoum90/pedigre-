@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddNodeComponent } from './add-node/add-node.component';
+import { FamilyComponent } from './family/family.component';
 import { ListeArbresComponent } from './liste-arbres/liste-arbres.component';
-import { RightClikComponent } from './right-clik/right-clik.component';
 
 const routes: Routes = [
   {
     path: '',
+    component: FamilyComponent,
+  },
+  {
+    path: ':famId/family',
     component: ListeArbresComponent,
   },
   {
-    path: 'add/:id',
+    path: ':famId/add/:id',
     component: AddNodeComponent,
-  },
-  {
-    path: 'clicked',
-    component: RightClikComponent,
   },
 ];
 @NgModule({

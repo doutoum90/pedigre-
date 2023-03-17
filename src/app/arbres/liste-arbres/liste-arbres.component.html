@@ -1,1 +1,9 @@
-<app-d3-org-chart [data]="data"></app-d3-org-chart>
+<div *ngIf="data && data.length > 0; else pasDeMembre">
+  <app-d3-org-chart (redirectEvent)="redirect($event)" [data]="data"></app-d3-org-chart>
+</div>
+
+<ng-template #pasDeMembre>
+  <h1>Pas de membre dans cette famille ajouter un nouveau Membre.</h1>
+
+  <app-add-member (submitEvent)="ajouter($event)"></app-add-member>
+</ng-template>

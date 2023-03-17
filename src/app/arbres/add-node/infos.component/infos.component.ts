@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-infos',
@@ -41,7 +42,7 @@ export class InfosComponent implements OnInit {
   validate() {
     const value = this.infosForm.value;
     this.http
-      .post<any>('http://localhost:3000/families', value)
+      .post<any>(`${environment.BASE_URL}/members`, value)
       .subscribe((members: any) => {
         this.cancel();
       });
@@ -53,7 +54,7 @@ export class InfosComponent implements OnInit {
   validateEtContinuer() {
     const value = this.infosForm.value;
     this.http
-      .patch<any>(`http://localhost:3000/families/${this.id}`, value)
+      .patch<any>(`${environment.BASE_URL}/members/${this.id}`, value)
       .subscribe((members: any) => {
         this.initForm();
         this.refreshForm();

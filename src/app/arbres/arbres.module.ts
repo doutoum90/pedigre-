@@ -7,25 +7,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NodeElementComponent } from './node-element/node-element.component';
 import { AddNodeComponent } from './add-node/add-node.component';
-import { RightClikComponent } from './right-clik/right-clik.component';
-import { AppContextMenuComponent } from './right-clik/app-context-menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SiblingComponent } from './add-node/sibling.component/sibling.component'
 import { PartnerComponent } from './add-node/partner.component';
 import { ParentComponent } from './add-node/parent.component';
 import { InfosComponent } from './add-node/infos.component/infos.component';
+import { FamilyComponent } from './family/family.component';
+import { AddMemberComponent } from './add-member/add-member.component';
 @NgModule({
   declarations: [
     ListeArbresComponent,
     D3OrgChartComponent,
     NodeElementComponent,
     AddNodeComponent,
-    RightClikComponent,
-    AppContextMenuComponent,
     SiblingComponent,
     PartnerComponent,
     ParentComponent,
     InfosComponent,
+    FamilyComponent,
+    AddMemberComponent,
   ],
   imports: [
     CommonModule,
