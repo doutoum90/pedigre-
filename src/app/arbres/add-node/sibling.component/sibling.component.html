@@ -19,10 +19,10 @@
     <h2>Ajout d'enfants</h2>
     <app-add-member
       [sibling]="true"
-      [parentId]="personne?._id"
       [personne]="personne"
       [peres]="peres"
       [meres]="meres"
+      (submitAndLeaveEvent)="validateEtContinuer($event)"
       (submitEvent)="ajouterFils($event)"
       (exitEvent)="quitter()"
     ></app-add-member>

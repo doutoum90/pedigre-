@@ -6,7 +6,6 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-add-node',
   templateUrl: './add-node.component.html',
-  styleUrls: ['./add-node.component.scss'],
 })
 export class AddNodeComponent implements OnInit {
   id!: string | null;
@@ -24,9 +23,7 @@ export class AddNodeComponent implements OnInit {
       .get<any>(
         `${environment.BASE_URL}/families/${this.famID}/members/${this.id}`
       )
-      .subscribe((personne) => {
-        this.personne = personne;
-      });
+      .subscribe((personne) => (this.personne = personne));
   }
 
   modifier(event: any) {

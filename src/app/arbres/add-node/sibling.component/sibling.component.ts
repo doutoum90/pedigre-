@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-sibling',
@@ -25,20 +26,17 @@ export class SiblingComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.famID = this.activatedRoute.snapshot.paramMap.get('famID');
-    this.getData()
-      .pipe(
-        tap((siblings) => (this.siblings = siblings)),
-        switchMap((siblings) =>
-          this.getPartner(this.personne._id, this.personne.sex)
-        )
-      )
-      .subscribe((parent) => {
-        if (parent.sex === 'F') {
-          this.meres = parent;
-        } else {
-          this.peres = parent;
-        }
-      });
+    forkJoin({
+      siblings: this.getData(),
+      parent: this.getPartner(this.personne._id, this.personne.sex),
+    }).subscribe(({ parent, siblings }) => {
+      this.siblings = siblings;
+      if (this.personne.sex === 'H') {
+        this.meres = parent;
+      } else {
+        this.peres = parent;
+      }
+    });
   }
   getData() {
     return this.http.get<any>(
@@ -64,6 +62,9 @@ export class SiblingComponent implements OnInit {
   }
   ajouterFils(event: any) {
     this.addData(event).subscribe((sibs) => (this.siblings = sibs));
+  }
+  validateEtContinuer(event: any) {
+    console.log(event);
   }
   quitter() {
     this.router.navigate(['arbres']);

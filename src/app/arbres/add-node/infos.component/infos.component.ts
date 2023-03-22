@@ -25,17 +25,13 @@ export class InfosComponent implements OnInit {
     );
   }
   validate(event: any) {
-    this.updateData(event).subscribe((members: any) => {
-      this.cancel();
-    });
+    this.updateData(event).subscribe((members: any) => this.cancel());
   }
 
   cancel() {
     this.router.navigate(['arbres', this.famID, 'family']);
   }
   validateEtContinuer(event: any) {
-    this.updateData(event).subscribe((members: any) => {
-      console.log(members);
-    });
+    this.updateData(event).subscribe((members: any) => console.log(members));
   }
 }

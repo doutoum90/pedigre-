@@ -27,7 +27,7 @@ export class ParentComponent implements OnInit {
   }
   ngOnChanges() {
     if (this.personne) {
-      this.fetchParent().subscribe(({ mere, pere } ) => {
+      this.fetchParent().subscribe(({ mere, pere }) => {
         this.mere = mere;
         this.pere = pere;
       });
@@ -36,12 +36,12 @@ export class ParentComponent implements OnInit {
 
   private fetchParent() {
     return forkJoin({
-      mere: this.getParent(this.personne.motherId, 'F'),
-      pere: this.getParent(this.personne.fatherId, 'H'),
+      mere: this.getParent(this.personne.motherId),
+      pere: this.getParent(this.personne.fatherId),
     });
   }
 
-  getParent(id: string, sex: string) {
+  getParent(id: string) {
     if (id) {
       return this.http.get<any>(
         `${environment.BASE_URL}/families/${this.famID}/members/parents/${id}`
@@ -65,6 +65,9 @@ export class ParentComponent implements OnInit {
     });
   }
 
+  validateEtContinuer(event: any) {
+    console.log(event);
+  }
   quitter() {
     this.router.navigate(['arbres']);
   }

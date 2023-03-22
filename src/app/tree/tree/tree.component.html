@@ -1,69 +1,86 @@
-<div class="tree-container">
-  <button (click)="myGraph.center()">Center</button>
-  <ngx-graph
-    #myGraph
-    class="chart-container"
-    [links]="hierarchialGraph.links"
-    [nodes]="hierarchialGraph.nodes"
-    [draggingEnabled]="false"
-    [view]="[1500, 500]"
-    [center$]="center$"
-  >
-    <ng-template #defsTemplate>
-      <svg:marker
-        id="arrow"
-        viewBox="0 -5 10 10"
-        refX="8"
-        refY="0"
-        markerWidth="4"
-        markerHeight="4"
-        orient="auto"
-      >
-        <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
-      </svg:marker>
-    </ng-template>
+<div
+  *ngIf="
+    hierarchialGraph?.nodes && hierarchialGraph.nodes.length > 0;
+    else pasDeMembre
+  "
+>
+  <div class="tree-container">
+    <button (click)="myGraph.center()">Center</button>
+    <ngx-graph
+      #myGraph
+      class="chart-container"
+      [links]="hierarchialGraph.links"
+      [nodes]="hierarchialGraph.nodes"
+      [draggingEnabled]="false"
+      [view]="[1500, 500]"
+      [center$]="center$"
+    >
+      <ng-template #defsTemplate>
+        <svg:marker
+          id="arrow"
+          viewBox="0 -5 10 10"
+          refX="8"
+          refY="0"
+          markerWidth="4"
+          markerHeight="4"
+          orient="auto"
+        >
+          <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+        </svg:marker>
+      </ng-template>
 
-    <ng-template #nodeTemplate let-node>
-      <svg:g class="node" (click)="process(node)">
-        <svg:rect
-          [attr.width]="node.dimension.width + 30"
-          [attr.height]="node.dimension.height"
-          [attr.fill]="node.data.color"
-        />
-        <svg:image
-          x="10"
-          y="5"
-          width="20"
-          height="20"
-          xlink:href="https://fakeimg.pl/100/"
-        />
-        <svg:text alignment-baseline="top">
-          <svg:tspan x="30" dy="1.5em" style="font-weight: bold">
-            {{ node.name }}
-            {{ node._directSubordinates }}
-            {{ node._totalSubordinates }}
-          </svg:tspan>
-        </svg:text>
-      </svg:g>
-    </ng-template>
+      <ng-template #nodeTemplate let-node>
+        <svg:g class="node" (click)="process(node)">
+          <svg:rect
+            [attr.width]="node.dimension.width + 30"
+            [attr.height]="node.dimension.height"
+            [attr.fill]="node.data.color"
+          />
+          <svg:image
+            x="10"
+            y="5"
+            width="20"
+            height="20"
+            xlink:href="https://fakeimg.pl/100/"
+          />
+          <svg:text alignment-baseline="top">
+            <svg:tspan x="30" dy="1.5em" style="font-weight: bold">
+              {{ node.name }}
+              {{ node._directSubordinates }}
+              {{ node._totalSubordinates }}
+            </svg:tspan>
+          </svg:text>
+        </svg:g>
+      </ng-template>
 
-    <ng-template #linkTemplate let-link>
-      <svg:g class="edge">
-        <svg:path
-          class="line"
-          stroke-width="2"
-          marker-end="url(#arrow)"
-        ></svg:path>
-        <svg:text class="edge-label" text-anchor="middle">
-          <textPath
-            style="fill: #666"
-            [attr.href]="'#' + link?.id"
-            startOffset="60%"
-          >
-            {{ link.label }}
-          </textPath>
-        </svg:text>
-      </svg:g>
-    </ng-template>
-  </ngx-graph>
+      <ng-template #linkTemplate let-link>
+        <svg:g class="edge">
+          <svg:path
+            class="line"
+            stroke-width="2"
+            marker-end="url(#arrow)"
+          ></svg:path>
+          <svg:text class="edge-label" text-anchor="middle">
+            <textPath
+              style="fill: #666"
+              [attr.href]="'#' + link?.id"
+              startOffset="60%"
+            >
+              {{ link.label }}
+            </textPath>
+          </svg:text>
+        </svg:g>
+      </ng-template>
+    </ngx-graph>
+  </div>
 </div>
+
+<ng-template #pasDeMembre>
+  <h1>Pas de membre dans cette famille ajouter un nouveau Membre.</h1>
+
+  <app-add-member
+    (submitAndLeaveEvent)="validateEtContinuer($event)"
+    (submitEvent)="ajouter($event)"
+    (exitEvent)="quitter()"
+  ></app-add-member>
+</ng-template>

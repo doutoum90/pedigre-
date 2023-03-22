@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as d3 from 'd3';
-// import * as csvData from './assets/datas.csv';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-liste-arbres',
@@ -38,6 +35,9 @@ export class ListeArbresComponent implements OnInit {
       .subscribe((member) => {
         this.data = [member];
       });
+  }
+  validateEtContinuer(event: any) {
+    console.log(event);
   }
   redirect(event: any) {
     this.router.navigate(['arbres', this.famID, 'add', event]);

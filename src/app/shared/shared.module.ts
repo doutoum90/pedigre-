@@ -1,29 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TreeComponent } from './tree/tree.component';
-import { TreeRoutingModule } from './tree-routing.module';
-
-import { NgxGraphModule } from '@swimlane/ngx-graph';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { NodesComponent } from './nodes/nodes.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddMemberComponent } from './add-member/add-member.component';
+import { HeaderComponent } from './header/header.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { SharedModule } from '../shared/shared.module';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/my-other-path/i18n/', '.json');
 }
-
 @NgModule({
-  declarations: [TreeComponent, NodesComponent],
+  declarations: [AddMemberComponent, HeaderComponent],
   imports: [
     CommonModule,
-    TreeRoutingModule,
-    NgxGraphModule,
-    NgxChartsModule,
-    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    NgbDropdownModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,
@@ -32,5 +27,13 @@ export function createTranslateLoader(http: HttpClient) {
       },
     }),
   ],
+  exports: [
+    AddMemberComponent,
+    HeaderComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    TranslateModule,
+  ],
 })
-export class TreeModule {}
+export class SharedModule {}

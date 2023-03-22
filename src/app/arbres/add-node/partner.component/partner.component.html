@@ -3,12 +3,30 @@
     <h2>Liste des epouses/maries</h2>
     <ul class="list-group">
       <li
-        class="list-group-item"
+        class="list-group-item d-flex justify-content-between align-items-center"
         style="cursor: pointer"
         *ngFor="let partner of partners"
         [routerLink]="['/arbres/add/', partner.id]"
       >
-        {{ partner.name }} {{ partner.surNom }}
+        <a class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ partner.name }} {{ partner.surNom }}</h5>
+            <small class="badge bg-primary rounded-pill">{{
+              partner.enfants?.length
+            }}</small>
+          </div>
+          <div class="mb-1">
+            <ul class="list-group">
+              <li
+                class="list-group-item"
+                style="cursor: pointer"
+                *ngFor="let enfant of partner?.enfants"
+              >
+                {{ enfant.name }} {{ enfant.surNom }}
+              </li>
+            </ul>
+          </div>
+        </a>
       </li>
     </ul>
   </div>
@@ -17,5 +35,6 @@
 <app-add-member
   [personne]="personne"
   (submitEvent)="validate($event)"
+  (submitAndLeaveEvent)="validateEtContinuer($event)"
   (exitEvent)="cancel()"
 ></app-add-member>

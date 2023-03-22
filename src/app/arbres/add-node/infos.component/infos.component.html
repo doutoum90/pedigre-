@@ -1,5 +1,7 @@
 <app-add-member
   [personne]="personne"
+  [edit]="true"
   (submitEvent)="validate($event)"
+  (submitAndLeaveEvent)="validateEtContinuer($event)"
   (exitEvent)="cancel()"
 ></app-add-member>

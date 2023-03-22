@@ -28,15 +28,13 @@ export class PartnerComponent implements OnInit {
         this.personne.sex === 'H'
           ? this.personne.femalePartenersId
           : this.personne.malPartenerIds
-      ).subscribe((parent) => {
-        this.partners = parent;
-      });
+      ).subscribe((partners) => (this.partners = partners));
     }
   }
   getData(ids: string[]) {
     let queryParams = new HttpParams();
     for (let id of ids) {
-      queryParams = queryParams.set('partnerId', id);
+      queryParams = queryParams.append('partnerId[]', id);
     }
     return this.http.get<any>(
       `${environment.BASE_URL}/families/${this.famID}/members/partners`,
@@ -49,12 +47,16 @@ export class PartnerComponent implements OnInit {
     console.log(value, this.famID, this.id);
     const vals = {
       ...value,
-      malPartenerIds: [this.id],
+      ...(this.personne.sex === 'F' && { femalePartenersId: [this.id] }),
+      ...(this.personne.sex === 'H' && { malPartenerIds: [this.id] }),
       imageUrl: value.imageUrl || 'https://fakeimg.pl/100/',
       profileUrl: value.profileUrl || 'https://fakeimg.pl/100/',
     };
     this.http
-      .post<any>(`${environment.BASE_URL}/families/${this.famID}/members`, vals)
+      .post<any>(
+        `${environment.BASE_URL}/families/${this.famID}/members/partner/${this.id}`,
+        vals
+      )
       .subscribe((members: any) => {
         this.router.navigate(['arbres']);
       });

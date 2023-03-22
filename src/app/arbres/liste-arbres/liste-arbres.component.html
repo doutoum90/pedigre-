@@ -9,6 +9,7 @@
   <h1>Pas de membre dans cette famille ajouter un nouveau Membre.</h1>
 
   <app-add-member
+    (submitAndLeaveEvent)="validateEtContinuer($event)"
     (submitEvent)="ajouter($event)"
     (exitEvent)="quitter()"
   ></app-add-member>

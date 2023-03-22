@@ -13,10 +13,13 @@ type GraphData = { nodes: Node[]; links: Edge[] };
   encapsulation: ViewEncapsulation.None,
 })
 export class TreeComponent {
-  hierarchialGraph!: GraphData;
+  hierarchialGraph: GraphData = { nodes: [], links: [] };
   famID: any;
   center$ = new Subject<any>();
   graph!: GraphComponent;
+
+  data!: any[];
+  csvData!: string;
   @ViewChild(GraphComponent)
   set pane(v: GraphComponent) {
     setTimeout(() => {
@@ -51,4 +54,32 @@ export class TreeComponent {
   process(data: any) {
     this.router.navigate(['arbres', this.famID, 'add', data.id]);
   }
+
+  ngAfterViewInit() {
+    this.famID = this.activedRoute.snapshot.paramMap.get('famID');
+    this.http
+      .get<any>(`${environment.BASE_URL}/families/${this.famID}/members`)
+      .subscribe((members: any[]) => {
+        this.data = members;
+        members.forEach((d) => {
+          d._highlighted = false;
+        });
+      });
+  }
+  ajouter(event: any) {
+    this.http
+      .post(`${environment.BASE_URL}/families/${this.famID}/members`, event)
+      .subscribe((member) => {
+        this.data = [member];
+      });
+  }
+
+  validateEtContinuer(event: any) {
+    console.log(event);
+  }
+  redirect(event: any) {
+    this.router.navigate(['arbres', this.famID, 'add', event]);
+  }
+
+  quitter() {}
 }
