@@ -11,6 +11,7 @@ const routes: Routes = [
     path: 'tree',
     loadChildren: () => import('./tree/tree.module').then((m) => m.TreeModule),
   },
+  { path: '', redirectTo: '/tree', pathMatch: 'full' },
 ];
 
 @NgModule({
