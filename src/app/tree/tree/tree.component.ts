@@ -18,8 +18,6 @@ export class TreeComponent {
   center$ = new Subject<any>();
   graph!: GraphComponent;
 
-  data!: any[];
-  csvData!: string;
   @ViewChild(GraphComponent)
   set pane(v: GraphComponent) {
     setTimeout(() => {
@@ -43,10 +41,12 @@ export class TreeComponent {
 
   getData() {
     this.http
+      // .get<any>('../assets/files/tt.json')
       .get<GraphData>(
         `${environment.BASE_URL}/families/${this.famID}/members/node`
       )
       .subscribe((members: any) => {
+        console.log(members);
         this.hierarchialGraph = members;
       });
   }
@@ -55,22 +55,11 @@ export class TreeComponent {
     this.router.navigate(['tree', this.famID, 'families', data.id]);
   }
 
-  ngAfterViewInit() {
-    this.famID = this.activedRoute.snapshot.paramMap.get('famID');
-    this.http
-      .get<any>(`${environment.BASE_URL}/families/${this.famID}/members`)
-      .subscribe((members: any[]) => {
-        this.data = members;
-        members.forEach((d) => {
-          d._highlighted = false;
-        });
-      });
-  }
   ajouter(event: any) {
     this.http
       .post(`${environment.BASE_URL}/families/${this.famID}/members`, event)
       .subscribe((member) => {
-        this.data = [member];
+        // this.data = [member];
       });
   }
 

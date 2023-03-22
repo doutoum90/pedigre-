@@ -2,11 +2,14 @@
   "nodes": [
     {
       "_id": "6418dfd8667ed8aed140a6b2",
+      "id": "6418dfd8667ed8aed140a6b2",
       "name": "Epouse 1",
       "imageUrl": "https://fakeimg.pl/100/",
       "profileUrl": "https://fakeimg.pl/100/",
       "parentId": "6418d28ccff9782e92e1dd5d",
-      "surNom": "",
+      "surNom": "surNom1",
+      "label":"label1",
+      "tags": "hgzzehgze1",
       "dateNaissanceExacte": true,
       "dateNaissance": "",
       "mort": false,
@@ -18,11 +21,14 @@
     },
     {
       "_id": "6418d2a5cff9782e92e1dd62",
+      "id": "6418d2a5cff9782e92e1dd62",
       "name": "Epouse 1",
       "imageUrl": "https://fakeimg.pl/100/",
       "profileUrl": "https://fakeimg.pl/100/",
       "parentId": "6418d28ccff9782e92e1dd5d",
-      "surNom": "",
+      "surNom": "surNom2",
+      "tags": "hgzzehgze2",
+      "label": "label2",
       "dateNaissanceExacte": true,
       "dateNaissance": "",
       "mort": false,
@@ -34,11 +40,14 @@
     },
     {
       "_id": "6418d28ccff9782e92e1dd5d",
+      "id": "6418d28ccff9782e92e1dd5d",
       "name": "Hissein",
       "imageUrl": "https://fakeimg.pl/100/",
       "profileUrl": "https://fakeimg.pl/100/",
       "parentId": null,
-      "surNom": "",
+      "tags": "hgzzehgze3",
+      "surNom": "surNom3",
+      "label": "label3",
       "dateNaissanceExacte": true,
       "dateNaissance": "",
       "mort": false,
@@ -51,12 +60,14 @@
   ],
   "links": [
     {
+      "id":"jrejerre",
       "source": "6418d28ccff9782e92e1dd5d",
       "target": "6418d2a5cff9782e92e1dd62",
       "label": "lien de parentés"
     },
 
     {
+      "id": "jrejerre2",
       "source": "6418d28ccff9782e92e1dd5d",
       "target": "6418dfd8667ed8aed140a6b2",
       "label": "lien de parentés"

@@ -1,0 +1,31 @@
+{
+  "nodes": [
+    {
+      "id": "first",
+      "name": "nameA",
+      "label": "A"
+    }, {
+      "id": "second",
+      "name": "nameB",
+      "label": "B"
+    }, {
+      "id": "third",
+      "name": "nameC",
+      "label": "C"
+    }
+  ],
+   "links": [
+     {
+       "id": "a",
+       "source": "first",
+       "target": "second",
+       "label": "is parent of"
+     },
+     {
+       "id": "b",
+       "source": "first",
+       "target": "third",
+       "label": "custom label"
+     }
+   ]
+}
