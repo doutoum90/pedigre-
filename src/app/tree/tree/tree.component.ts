@@ -52,7 +52,7 @@ export class TreeComponent {
   }
 
   process(data: any) {
-    this.router.navigate(['arbres', this.famID, 'add', data.id]);
+    this.router.navigate(['tree', this.famID, 'families', data.id]);
   }
 
   ngAfterViewInit() {
@@ -78,7 +78,7 @@ export class TreeComponent {
     console.log(event);
   }
   redirect(event: any) {
-    this.router.navigate(['arbres', this.famID, 'add', event]);
+    this.router.navigate(['tree', this.famID, 'families', event]);
   }
 
   quitter() {}

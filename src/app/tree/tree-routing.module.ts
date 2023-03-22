@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';;
 import { RouterModule, Routes } from '@angular/router';
 import { TreeComponent } from './tree/tree.component';
 import { NodesComponent } from './nodes/nodes.component';
+import { AddNodeComponent } from '../shared/add-node/add-node.component';
 
 const routes: Routes = [
   {
@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: ':famID/families',
     component: TreeComponent,
+  },
+  {
+    path: ':famID/families/:id',
+    component: AddNodeComponent,
   },
 ];
 @NgModule({

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddNodeComponent } from './add-node/add-node.component';
+import { AddNodeComponent } from '../shared/add-node/add-node.component';
 import { FamilyComponent } from './family/family.component';
 import { ListeArbresComponent } from './liste-arbres/liste-arbres.component';
 

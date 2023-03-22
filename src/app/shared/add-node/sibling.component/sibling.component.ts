@@ -13,7 +13,7 @@ export class SiblingComponent implements OnInit {
   @Input() id!: string | null;
   @Input() famID!: string | null;
   @Input() personne!: any;
-  @Input() siblings!: any[];
+  siblings!: any[];
   peres: any;
   meres: any;
 
@@ -61,12 +61,15 @@ export class SiblingComponent implements OnInit {
       .pipe(switchMap((params: ParamMap) => this.getData()));
   }
   ajouterFils(event: any) {
-    this.addData(event).subscribe((sibs) => (this.siblings = sibs));
+    this.addData(event).subscribe((sibs) => {
+      console.log(sibs);
+      this.siblings = sibs;
+    });
   }
   validateEtContinuer(event: any) {
     console.log(event);
   }
   quitter() {
-    this.router.navigate(['arbres']);
+    this.router.navigate(['tree']);
   }
 }
