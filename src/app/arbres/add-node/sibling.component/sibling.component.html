@@ -8,7 +8,7 @@
         *ngFor="let sib of siblings"
         [routerLink]="['/arbres/add/', sib.id]"
       >
-        {{ sib.name }} {{sib.surNom}}
+        {{ sib.name }} {{ sib.surNom }}
       </li>
     </ul>
   </div>
@@ -18,8 +18,13 @@
   <div class="col">
     <h2>Ajout d'enfants</h2>
     <app-add-member
+      [sibling]="true"
       [parentId]="personne?._id"
+      [personne]="personne"
+      [peres]="peres"
+      [meres]="meres"
       (submitEvent)="ajouterFils($event)"
+      (exitEvent)="quitter()"
     ></app-add-member>
   </div>
 </div>

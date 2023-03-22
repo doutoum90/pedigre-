@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col">
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" routerLink="/arbres">
+        {{ "FAMILY" | translate }}</a
+      >
+      <div class="navbar-text my-2 my-lg-0">
+        <div ngbDropdown class="d-inline-block">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            class="btn btn-secondary dropdown-toggle"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            Langues
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button
+              ngbDropdownItem
+              (click)="changeLang(l)"
+              *ngFor="let l of langues"
+            >
+              {{ l.name }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

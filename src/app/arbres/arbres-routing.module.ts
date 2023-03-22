@@ -10,11 +10,11 @@ const routes: Routes = [
     component: FamilyComponent,
   },
   {
-    path: ':famId/family',
+    path: ':famID/family',
     component: ListeArbresComponent,
   },
   {
-    path: ':famId/add/:id',
+    path: ':famID/add/:id',
     component: AddNodeComponent,
   },
 ];

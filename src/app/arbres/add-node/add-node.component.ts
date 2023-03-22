@@ -32,5 +32,6 @@ export class AddNodeComponent implements OnInit {
   modifier(event: any) {
     console.log(event);
   }
- 
+
+  quitter() {}
 }

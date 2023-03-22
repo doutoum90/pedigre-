@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col">
+    <h2>Pere et mere</h2>
+    <div *ngIf="pere && mere; else PasDeParent">
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          style="cursor: pointer"
+          [routerLink]="['/arbres/add/', pere?.id]"
+        >
+          Pere: {{ pere?.name }}
+        </li>
+        <li
+          class="list-group-item"
+          style="cursor: pointer"
+          [routerLink]="['/arbres/add/', mere?.id]"
+        >
+          Mere: {{ mere?.name }}
+        </li>
+      </ul>
+    </div>
+    <ng-template #PasDeParent>
+      <p>Pas de Parent trouvé pour cette personne</p>
+      <div class="row">
+        <div class="col">
+          <h2>Ajout d'enfants</h2>
+          <app-add-member
+            [parentId]="personne?._id"
+            (submitEvent)="ajouterParent($event)"
+            (exitEvent)="quitter()"
+          ></app-add-member>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

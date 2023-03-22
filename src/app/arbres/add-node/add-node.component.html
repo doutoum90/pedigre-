@@ -6,30 +6,26 @@
   <ng-container ngbNavItem>
     <a ngbNavLink>Infos</a>
     <ng-template ngbNavContent>
-      <!--  <app-infos [personne]="personne" [id]="id"></app-infos> -->
-      <app-add-member
-        [personne]="personne"
-        (submitEvent)="modifier($event)"
-      ></app-add-member>
+      <app-infos [personne]="personne" [id]="id" [famID]="famID"></app-infos>
     </ng-template>
   </ng-container>
   <ng-container ngbNavItem>
     <a ngbNavLink>Parents</a>
     <ng-template ngbNavContent>
-      <app-parent [personne]="personne" [id]="id"></app-parent>
+      <app-parent [personne]="personne" [id]="id" [famID]="famID"></app-parent>
     </ng-template>
   </ng-container>
   <ng-container ngbNavItem>
     <a ngbNavLink>Epouse(s)/ Marie(s)</a>
     <ng-template ngbNavContent>
-      <app-partner [personne]="personne" [id]="id"></app-partner>
+      <app-partner [personne]="personne" [id]="id" [famID]="famID"></app-partner>
     </ng-template>
   </ng-container>
   <ng-container ngbNavItem>
     <a ngbNavLink>Enfants</a>
     <ng-template ngbNavContent>
-      <app-sibling [personne]="personne" [id]="id"></app-sibling>
-     <!--  <app-add-member [parentId]="personne._id" (submitEvent)="ajouterFils($event)"></app-add-member> -->
+      <app-sibling [personne]="personne" [id]="id" [famID]="famID"></app-sibling>
+      <!--  <app-add-member [parentId]="personne._id" (submitEvent)="ajouterFils($event)"></app-add-member> -->
     </ng-template>
   </ng-container>
 </nav>

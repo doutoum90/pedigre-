@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { map, switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sibling',
   templateUrl: 'sibling.component.html',
 })
 export class SiblingComponent implements OnInit {
-  id!: string | null;
+  @Input() id!: string | null;
+  @Input() famID!: string | null;
   @Input() personne!: any;
   @Input() siblings!: any[];
-  siblingsForm!: FormGroup;
-  famID: any;
+  peres: any;
+  meres: any;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -25,21 +25,47 @@ export class SiblingComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.famID = this.activatedRoute.snapshot.paramMap.get('famID');
-    this.getData().subscribe((sibs) => (this.siblings = sibs));
+    this.getData()
+      .pipe(
+        tap((siblings) => (this.siblings = siblings)),
+        switchMap((siblings) =>
+          this.getPartner(this.personne._id, this.personne.sex)
+        )
+      )
+      .subscribe((parent) => {
+        if (parent.sex === 'F') {
+          this.meres = parent;
+        } else {
+          this.peres = parent;
+        }
+      });
   }
   getData() {
     return this.http.get<any>(
-      `${environment.BASE_URL}/families/${this.famID}/members/sibling/${this.id}`
+      `${environment.BASE_URL}/families/${this.famID}/members/sibling/${this.id}?sex=${this.personne.sex}`
     );
   }
 
+  getPartner(id: string, sex: string) {
+    return this.http.get<any>(
+      `${environment.BASE_URL}/families/${this.famID}/members/partner/${id}?sex=${sex}`
+    );
+  }
+
+  addData(event: any) {
+    const vals = {
+      ...event,
+      ...(this.personne.sex === 'F' && { motherId: this.personne._id }),
+      ...(this.personne.sex === 'H' && { fatherId: this.personne._id }),
+    };
+    return this.http
+      .post<any>(`${environment.BASE_URL}/families/${this.famID}/members`, vals)
+      .pipe(switchMap((params: ParamMap) => this.getData()));
+  }
   ajouterFils(event: any) {
-    this.http
-      .post<any>(
-        `${environment.BASE_URL}/families/${this.famID}/members`,
-        event
-      )
-      .pipe(switchMap((params: ParamMap) => this.getData()))
-      .subscribe((sibs) => (this.siblings = sibs));
+    this.addData(event).subscribe((sibs) => (this.siblings = sibs));
+  }
+  quitter() {
+    this.router.navigate(['arbres']);
   }
 }

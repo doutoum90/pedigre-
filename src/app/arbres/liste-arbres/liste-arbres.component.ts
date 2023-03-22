@@ -22,7 +22,7 @@ export class ListeArbresComponent implements OnInit {
   ) {}
   ngOnInit() {}
   ngAfterViewInit() {
-    this.famID = this.activedRoute.snapshot.paramMap.get('famId');
+    this.famID = this.activedRoute.snapshot.paramMap.get('famID');
     this.http
       .get<any>(`${environment.BASE_URL}/families/${this.famID}/members`)
       .subscribe((members: any[]) => {
@@ -30,16 +30,6 @@ export class ListeArbresComponent implements OnInit {
         members.forEach((d) => {
           d._highlighted = false;
         });
-        /*  let prevIndex = 0;
-      setInterval((d: any) => {
-        data[prevIndex]._highlighted = false;
-        let index = Math.floor(Math.random() * 10);
-        prevIndex = index;
-        data[index]._centered = true;
-        data[index]._expanded = true;
-        data[index]._highlighted = true;
-        this.data = Object.assign([], data);
-      }, 1000); */
       });
   }
   ajouter(event: any) {
@@ -52,4 +42,6 @@ export class ListeArbresComponent implements OnInit {
   redirect(event: any) {
     this.router.navigate(['arbres', this.famID, 'add', event]);
   }
+
+  quitter() {}
 }

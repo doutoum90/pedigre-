@@ -1,17 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-family',
-  templateUrl: './family.component.html',
-  styleUrls: ['./family.component.scss'],
+  selector: 'app-nodes',
+  templateUrl: './nodes.component.html',
+  styleUrls: ['./nodes.component.scss'],
 })
-export class FamilyComponent implements OnInit {
+export class NodesComponent {
   families!: any[];
-  showForm = false;
   familyForm!: FormGroup;
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -22,7 +21,7 @@ export class FamilyComponent implements OnInit {
     this.initForm();
     this.http
       .get<any>(`${environment.BASE_URL}/families`)
-      .subscribe((fam) => (this.families = fam));
+      .subscribe((fam: any) => (this.families = fam));
   }
   initForm() {
     this.familyForm = new FormGroup({
