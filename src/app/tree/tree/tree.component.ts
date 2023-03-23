@@ -41,12 +41,10 @@ export class TreeComponent {
 
   getData() {
     this.http
-      // .get<any>('../assets/files/tt.json')
       .get<GraphData>(
         `${environment.BASE_URL}/families/${this.famID}/members/node`
       )
       .subscribe((members: any) => {
-        console.log(members);
         this.hierarchialGraph = members;
       });
   }

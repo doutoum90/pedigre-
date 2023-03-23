@@ -44,7 +44,6 @@ export class PartnerComponent implements OnInit {
     );
   }
   validate(value: any) {
-    console.log(value, this.famID, this.id);
     const vals = {
       ...value,
       ...(this.personne.sex === 'F' && { femalePartenersId: [this.id] }),

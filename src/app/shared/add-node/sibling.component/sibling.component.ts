@@ -62,7 +62,6 @@ export class SiblingComponent implements OnInit {
   }
   ajouterFils(event: any) {
     this.addData(event).subscribe((sibs) => {
-      console.log(sibs);
       this.siblings = sibs;
     });
   }
