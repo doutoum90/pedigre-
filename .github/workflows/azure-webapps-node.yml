@@ -5,7 +5,7 @@ on:
       - develop
 jobs:
   lfts:
-    runs-on: kt-gu
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.17.x]
