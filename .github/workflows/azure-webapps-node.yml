@@ -1,39 +1,37 @@
 on:
+  workflow_dispatch:    
   push:
-    branches: [ "main" ]
-  workflow_dispatch:
-
-env:
-  AZURE_WEBAPP_NAME: your-app-name    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '14.x'                # set this to the node version to use
-
-permissions:
-  contents: read
-
+    branches-ignore:
+      - develop
 jobs:
   lfts:
     runs-on: kt-gu
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.19.1, 18.17.x]
-  build:
-    runs-on: ubuntu-latest
+        node-version: [18.17.x]
+
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'yarn'
+      - name: set Yarn
+        uses: mskelton/setup-yarn@v1    
 
-    - name: npm install, build, and test
-      run: |
-        yarn install
-        yarn run build --if-present
-        yarn run test --if-present
+      - name: Install dependencies
+        run: yarn install
 
+      - name: Lint code
+        run: yarn lint
+      
+      - name: Build code
+        run: yarn build
 
-
-  
+      - name: test coverage
+        run: yarn coverage
